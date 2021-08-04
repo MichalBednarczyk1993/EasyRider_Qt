@@ -13,16 +13,31 @@ void Player::keyPressEvent(QKeyEvent *event){
 
     qDebug() << "test";
 
-    if (event->key() == Qt::Key_Left){
+    switch (event->key()) {
+    case Qt::Key_Left:
         setPos(x()-10,y());
-    }
-    else if (event->key() == Qt::Key_Right){
+        break;
+    case Qt::Key_Right:
         setPos(x()+10,y());
-    }
-    else if (event->key() == Qt::Key_Up){
+        break;
+    case Qt::Key_Up:
         setPos(x(),y()-10);
-    }
-    else if (event->key() == Qt::Key_Down){
+        break;
+    case Qt::Key_Down:
         setPos(x(),y()+10);
+        break;
     }
+
+//    if (event->key() == Qt::Key_Left){
+//        setPos(x()-10,y());
+//    }
+//    else if (event->key() == Qt::Key_Right){
+//        setPos(x()+10,y());
+//    }
+//    else if (event->key() == Qt::Key_Up){
+//        setPos(x(),y()-10);
+//    }
+//    else if (event->key() == Qt::Key_Down){
+//        setPos(x(),y()+10);
+//    }
 }

@@ -1,24 +1,15 @@
-#include "player.h"
+#include "game.h"
 
 #include <QApplication>
-#include <QGraphicsScene>
-#include <QGraphicsView>
+
+Game* game;
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    QGraphicsScene *scene = new QGraphicsScene();
-
-    Player *player = new Player();
-
-    player->setFlag(QGraphicsItem::ItemIsFocusable);
-    player->setFocus();
-
-    scene->addItem(player);
-
-    QGraphicsView *view = new QGraphicsView(scene);
-    view->show();
+    game = new Game();
+    //game->show();
 
     return a.exec();
 }

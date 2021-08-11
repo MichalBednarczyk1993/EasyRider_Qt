@@ -10,11 +10,13 @@ CONFIG += c++11
 
 SOURCES += \
     bot.cpp \
+    game.cpp \
     main.cpp \
     player.cpp
 
 HEADERS += \
     bot.h \
+    game.h \
     player.h
 
 # Default rules for deployment.

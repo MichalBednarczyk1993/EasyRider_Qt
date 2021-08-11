@@ -2,13 +2,19 @@
 #define PLAYER_H
 
 #include <QGraphicsRectItem>
+#include <QObject>
+#include <QGraphicsItem>
 
-class Player: public QGraphicsRectItem
+class Player: public QObject, public QGraphicsRectItem
 {
-public:
-    Player();
+    Q_OBJECT
 
-    void keyPressEvent(QKeyEvent *event);
+public:
+    Player(QGraphicsItem* parent = 0);
+    void keyPressEvent(QKeyEvent* event);
+
+public slots:
+    void spawn();
 };
 
 #endif // PLAYER_H

@@ -1,15 +1,16 @@
 #include "player.h"
+#include "bot.h"
 
 #include <QGraphicsScene>
 #include <QKeyEvent>
 #include <QDebug>
 
-Player::Player()
+Player::Player(QGraphicsItem* parent): QGraphicsRectItem(parent)
 {
     setRect(0, 0, 30, 30);
 }
 
-void Player::keyPressEvent(QKeyEvent *event){
+void Player::keyPressEvent(QKeyEvent *event) {
 
     qDebug() << "test";
 
@@ -27,4 +28,9 @@ void Player::keyPressEvent(QKeyEvent *event){
         setPos(x(),y()+10);
         break;
     }
+}
+
+void Player::spawn() {
+    Bot* bot = new Bot();
+    scene()->addItem(bot);
 }

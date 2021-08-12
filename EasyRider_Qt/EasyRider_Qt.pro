@@ -12,11 +12,13 @@ SOURCES += \
     bot.cpp \
     game.cpp \
     main.cpp \
+    map.cpp \
     player.cpp
 
 HEADERS += \
     bot.h \
     game.h \
+    map.h \
     player.h
 
 # Default rules for deployment.

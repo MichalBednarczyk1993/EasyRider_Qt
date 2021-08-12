@@ -15,19 +15,22 @@ Game::Game(QWidget* parent)
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-    player = new Player();
-    // set player in the middle of scene
-    //TODO player should be always in the middle of the sceen
-    player->setPos(xSize/2 - player->rect().width()/2, 600/2 - player->rect().height()/2);
-    player->setFlag(QGraphicsItem::ItemIsFocusable);
-    player->setFocus();
-
-    scene->addItem(player);
+    map = new Map();
+    map->generateMap();
 
 
-    // generate enemies
+//    player = new Player();
+//    // set player in the middle of scene
+//    //TODO player should be always in the middle of the sceen
+//    player->setPos(xSize/2 - player->rect().width()/2, 600/2 - player->rect().height()/2);
+//    player->setFlag(QGraphicsItem::ItemIsFocusable);
+//    player->setFocus();
+//    scene->addItem(player);
+
+
+    // generate vehicles
     QTimer* timer = new QTimer();
-    QObject::connect(timer, SIGNAL(timeout()), player, SLOT(spawn()));
+    //QObject::connect(timer, SIGNAL(timeout()), player, SLOT(spawn()));
     timer->start(2000);
 
     show();

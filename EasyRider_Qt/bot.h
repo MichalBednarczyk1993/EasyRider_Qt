@@ -31,7 +31,6 @@ private:
     };
 
     struct Vehicle {
-
         void init(int lenght, int widht, int speed) {
             this->leng = lenght;
             this->width = widht;

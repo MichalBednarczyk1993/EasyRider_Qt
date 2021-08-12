@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include "player.h"
+#include "map.h"
 
 #include <QGraphicsView>
 #include <QWidget>
@@ -15,6 +16,7 @@ public:
 
     QGraphicsScene* scene;
     Player* player;
+    Map* map;
 
 private:
     int xSize, ySize;

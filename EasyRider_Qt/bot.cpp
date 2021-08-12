@@ -7,11 +7,11 @@
 
 Bot::Bot(QGraphicsItem *parent): QObject(), QGraphicsRectItem(parent)
 {
-    // (later) random type: car, motorcycle, truck, pedestrian
+    //TODO random type: car, motorcycle, truck, pedestrian
 
     // generate random direaction starting and position
+    setRect(0, 0, 30, 30);
     drawDirection();
-    setStartPos();
 
     // connect a timer to move() vehicle after every timeout
     QTimer *timer = new QTimer(this);
@@ -19,37 +19,37 @@ Bot::Bot(QGraphicsItem *parent): QObject(), QGraphicsRectItem(parent)
     timer->start(50);
 }
 
-void Bot::move()
-{
-    // move enemy down
-    moveRigthWay();
-
-    // destroy enemy when it goes out of the screen
-    if (pos().y() > 600 || pos().x() > 800) {
-        scene()->removeItem(this);
-        delete this;
-    }
-
-
-}
-
 void Bot::setStartPos() {
     int x = 0;
     int y = 0;
 
     if (axis == yDir) {
-        x = 400; // in the midle of x axis
+        x = scene()->width()/2;// in the midle of x axis
         if (!isPositive) {
-            y = 600;
+            y = scene()->height();
         }// else stay with 0
     } else {
-        y = 300;
+        y = scene()->width()/2;;
         if (!isPositive) {
-            x = 800;
+            x = scene()->height();
         }
     }
 
-    setRect(x, y, 30, 30);
+    setPos(x, y);
+
+}
+
+void Bot::move()
+{
+    // move bot down
+    moveRigthWay();
+
+    // destroy bot when it goes out of the screen
+    if (pos().y() > scene()->height() || pos().x() > scene()->width()) {
+        scene()->removeItem(this);
+        delete this;
+    }
+
 
 }
 

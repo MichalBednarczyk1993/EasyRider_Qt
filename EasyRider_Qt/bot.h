@@ -12,6 +12,7 @@ class Bot : public QObject, public QGraphicsRectItem
 
 public:
     Bot(QGraphicsItem *parent=0);
+    void setStartPos();
 
 public slots:
     void move();
@@ -34,7 +35,6 @@ private:
     Dir dir;
     Axis axis;
 
-    void setStartPos();
     void drawDirection();
     void moveRigthWay();
 };

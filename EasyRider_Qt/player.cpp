@@ -33,4 +33,5 @@ void Player::keyPressEvent(QKeyEvent *event) {
 void Player::spawn() {
     Bot* bot = new Bot();
     scene()->addItem(bot);
+    bot->setStartPos();
 }

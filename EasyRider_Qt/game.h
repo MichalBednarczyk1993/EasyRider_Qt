@@ -19,7 +19,10 @@ public:
 private:
     int xSize, ySize;
 
+    void setSceneProperties();
     void setScreenSize(int horizontal, int vertical);
+    void setPlayer();
+    void generateVehicles();
 };
 
 #endif // GAME_H

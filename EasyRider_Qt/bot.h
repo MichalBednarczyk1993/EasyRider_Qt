@@ -30,10 +30,23 @@ private:
         yDir
     };
 
+    struct Vehicle {
+
+        void init(int lenght, int widht, int speed) {
+            this->leng = lenght;
+            this->width = widht;
+            this->speed = speed;
+        };
+        int leng;
+        int width;
+        int speed;
+    };
 
     bool isPositive;
     Dir dir;
     Axis axis;
+    Vehicle vehicle;
+
 
     void drawDirection();
     void moveRigthWay();

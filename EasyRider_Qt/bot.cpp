@@ -9,8 +9,10 @@ Bot::Bot(QGraphicsItem *parent): QObject(), QGraphicsRectItem(parent)
 {
     //TODO random type: car, motorcycle, truck, pedestrian
 
+    vehicle.init(30, 30, 5);
+
     // generate random direaction starting and position
-    setRect(0, 0, 30, 30);
+    setRect(0, 0, vehicle.width, vehicle.leng);
     drawDirection();
 
     // connect a timer to move() vehicle after every timeout
@@ -24,14 +26,18 @@ void Bot::setStartPos() {
     int y = 0;
 
     if (axis == yDir) {
-        x = scene()->width()/2;// in the midle of x axis
-        if (!isPositive) {
+        if (isPositive) {
+            x = scene()->width()/2 + 10;// in the midle of x axis
             y = scene()->height();
-        }// else stay with 0
+        } else {
+            x = scene()->width()/2 - 10 - vehicle.width;
+        }
     } else {
         y = scene()->width()/2;;
-        if (!isPositive) {
+        if (isPositive) {
             x = scene()->height();
+        } else  {
+
         }
     }
 
@@ -84,15 +90,15 @@ void Bot::moveRigthWay()
 
     if (axis == yDir) {
         if (!isPositive) {
-            y -= 5;
+            y -= vehicle.speed;
         } else {
-            y += 5;
+            y += vehicle.speed;
         }
     } else {
         if (!isPositive) {
-            x -= 5;
+            x -= vehicle.speed;
         } else {
-            x += 5;
+            x += vehicle.speed;
         }
     }
 

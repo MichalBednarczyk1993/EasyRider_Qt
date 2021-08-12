@@ -2,5 +2,5 @@
 
 MapField::MapField(QGraphicsItem* parent) : QObject(), QGraphicsRectItem(parent)
 {
-    setRect(0, 0, 100, 100);
+    setRect(300, 300, 100, 100);
 }

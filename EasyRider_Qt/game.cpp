@@ -7,6 +7,7 @@ Game::Game(QWidget* parent)
 {
     setScreenSize(1600, 1200);
     setSceneProperties();
+    generateMap();
     setPlayer();
     generateVehicles();
 
@@ -16,6 +17,13 @@ Game::Game(QWidget* parent)
 void Game::setScreenSize(int horizontal, int vertical) {
     xSize = horizontal;
     ySize = vertical;
+}
+
+void Game::generateMap()
+{
+    MapField* mapfield = new MapField();
+    scene->addItem(mapfield);
+    mapfield->setBrush(Qt::green);
 }
 
 void Game::setSceneProperties() {

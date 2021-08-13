@@ -19,11 +19,27 @@ void Game::setScreenSize(int horizontal, int vertical) {
     ySize = vertical;
 }
 
-void Game::generateMap()
-{
-    MapField* mapfield = new MapField();
-    scene->addItem(mapfield);
-    mapfield->setBrush(Qt::green);
+void Game::generateMap() {
+    int brickEdgeLeng = 100; // Brick dimentions = 100x100
+    bool street;
+
+    for (int y = 0; y < ySize/brickEdgeLeng; y++) {
+        for (int x = 0; x < xSize/brickEdgeLeng; x++) {
+            MapField *mapfield = new MapField(brickEdgeLeng);
+            scene->addItem(mapfield);
+            mapfield->setPos(x*100, y*100);
+
+            if (y%3 == 0 || x%4 == 0) {
+                street = true;
+            } else {
+                street = false;
+            }
+
+            mapfield->setStreet(street);
+
+        }
+    }
+
 }
 
 void Game::setSceneProperties() {

@@ -9,7 +9,14 @@ class MapField : public QObject, public QGraphicsRectItem
 {
     Q_OBJECT
 public:
-    MapField(QGraphicsItem* parent = 0);
+    MapField(int brickEdgeLeng, QGraphicsItem* parent = 0);
+    void setStreet(bool isStreet);
+
+private:
+    int width = 100;
+    int lenght = 100;
+    bool street = false;
+
 };
 
 #endif // MAPFIELD_H

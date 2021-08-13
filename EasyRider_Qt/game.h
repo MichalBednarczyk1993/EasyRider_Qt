@@ -7,6 +7,7 @@
 #include <QGraphicsView>
 #include <QWidget>
 #include <QGraphicsScene>
+#include <list>
 
 
 class Game: public QGraphicsView

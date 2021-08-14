@@ -29,11 +29,13 @@ void Game::generateMap() {
             if (y%3 == 0 || x%4 == 0) {
                 Street *mapfield = new Street();
                 scene->addItem(mapfield);
-                mapfield->setPos(x*100, y*100);
+                mapfield->setPos(x*brickEdgeLeng, y*brickEdgeLeng);
+                mapfield->init(brickEdgeLeng);
             } else {
                 Sidewalk *mapfield = new Sidewalk();
                 scene->addItem(mapfield);
-                mapfield->setPos(x*100, y*100);
+                mapfield->setPos(x*brickEdgeLeng, y*brickEdgeLeng);
+                mapfield->init(brickEdgeLeng);
             }
         }
     }

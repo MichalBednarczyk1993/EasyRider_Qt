@@ -15,6 +15,7 @@ SOURCES += \
     mapfield.cpp \
     mapparameters.cpp \
     player.cpp \
+    positioningutils.cpp \
     sidewalk.cpp \
     street.cpp
 
@@ -24,6 +25,7 @@ HEADERS += \
     mapfield.h \
     mapparameters.h \
     player.h \
+    positioningutils.h \
     sidewalk.h \
     street.h
 

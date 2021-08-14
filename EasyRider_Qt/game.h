@@ -3,6 +3,7 @@
 
 #include "player.h"
 #include "mapparameters.h"
+#include "positioningutils.h"
 
 #include <QGraphicsView>
 #include <QWidget>
@@ -17,6 +18,7 @@ public:
 
     QGraphicsScene* scene;
     Player* player;
+
 
 
 private:

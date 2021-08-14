@@ -1,6 +1,7 @@
 #include "game.h"
 #include "street.h"
 #include "sidewalk.h"
+#include "positioningutils.h"
 
 #include <QTimer>
 
@@ -56,7 +57,9 @@ void Game::setSceneProperties() {
 void Game::setPlayer() {
     player = new Player();
     // set player at the bottom of the scene
-    player->setPos(xSize/2 - player->rect().width()/2, ySize - player->rect().height());
+    PositioningUtils utils = PositioningUtils(map);
+    std::pair<int, int> pos = utils.getValidPos(false, false, xSize/2, true);
+    player->setPos(std::get<0>(pos), std::get<1>(pos));
     player->setFlag(QGraphicsItem::ItemIsFocusable);
     player->setFocus();
     scene->addItem(player);

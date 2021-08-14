@@ -24,22 +24,24 @@ void Game::generateMap() {
     int brickEdgeLeng = 100; // Brick dimentions = 100x100
 
     for (int y = 0; y < ySize/brickEdgeLeng; y++) {
+        std::vector<MapParameters> row;
         for (int x = 0; x < xSize/brickEdgeLeng; x++) {
-
             if (y%3 == 0 || x%4 == 0) {
                 Street *mapfield = new Street();
                 scene->addItem(mapfield);
                 mapfield->setPos(x*brickEdgeLeng, y*brickEdgeLeng);
                 mapfield->init(brickEdgeLeng);
+                row.push_back(new MapParameters(true));
             } else {
                 Sidewalk *mapfield = new Sidewalk();
                 scene->addItem(mapfield);
                 mapfield->setPos(x*brickEdgeLeng, y*brickEdgeLeng);
                 mapfield->init(brickEdgeLeng);
+                row.push_back(new MapParameters(false));
             }
         }
+        map.push_back(row);
     }
-
 }
 
 void Game::setSceneProperties() {
@@ -53,8 +55,8 @@ void Game::setSceneProperties() {
 
 void Game::setPlayer() {
     player = new Player();
-    // set player in the middle of scene
-    player->setPos(xSize/2 - player->rect().width()/2, 600/2 - player->rect().height()/2);
+    // set player at the bottom of the scene
+    player->setPos(xSize/2 - player->rect().width()/2, ySize - player->rect().height());
     player->setFlag(QGraphicsItem::ItemIsFocusable);
     player->setFocus();
     scene->addItem(player);

@@ -2,12 +2,12 @@
 #define GAME_H
 
 #include "player.h"
-#include "mapfield.h"
+#include "mapparameters.h"
 
 #include <QGraphicsView>
 #include <QWidget>
 #include <QGraphicsScene>
-#include <list>
+#include <vector>
 
 
 class Game: public QGraphicsView
@@ -21,6 +21,7 @@ public:
 
 private:
     int xSize, ySize;
+    std::vector<std::vector<MapParameters>> map;
 
     void setSceneProperties();
     void setScreenSize(int horizontal, int vertical);

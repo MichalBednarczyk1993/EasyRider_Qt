@@ -13,6 +13,7 @@ SOURCES += \
     game.cpp \
     main.cpp \
     mapfield.cpp \
+    mapparameters.cpp \
     player.cpp \
     sidewalk.cpp \
     street.cpp
@@ -21,6 +22,7 @@ HEADERS += \
     bot.h \
     game.h \
     mapfield.h \
+    mapparameters.h \
     player.h \
     sidewalk.h \
     street.h

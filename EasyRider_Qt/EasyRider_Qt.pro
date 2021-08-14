@@ -13,13 +13,17 @@ SOURCES += \
     game.cpp \
     main.cpp \
     mapfield.cpp \
-    player.cpp
+    player.cpp \
+    sidewalk.cpp \
+    street.cpp
 
 HEADERS += \
     bot.h \
     game.h \
     mapfield.h \
-    player.h
+    player.h \
+    sidewalk.h \
+    street.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

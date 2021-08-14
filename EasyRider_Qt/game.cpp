@@ -1,4 +1,6 @@
 #include "game.h"
+#include "street.h"
+#include "sidewalk.h"
 
 #include <QTimer>
 
@@ -10,7 +12,6 @@ Game::Game(QWidget* parent)
     generateMap();
     setPlayer();
     generateVehicles();
-
     show();
 }
 
@@ -21,22 +22,19 @@ void Game::setScreenSize(int horizontal, int vertical) {
 
 void Game::generateMap() {
     int brickEdgeLeng = 100; // Brick dimentions = 100x100
-    bool street;
 
     for (int y = 0; y < ySize/brickEdgeLeng; y++) {
         for (int x = 0; x < xSize/brickEdgeLeng; x++) {
-            MapField *mapfield = new MapField(brickEdgeLeng);
-            scene->addItem(mapfield);
-            mapfield->setPos(x*100, y*100);
 
             if (y%3 == 0 || x%4 == 0) {
-                street = true;
+                Street *mapfield = new Street();
+                scene->addItem(mapfield);
+                mapfield->setPos(x*100, y*100);
             } else {
-                street = false;
+                Sidewalk *mapfield = new Sidewalk();
+                scene->addItem(mapfield);
+                mapfield->setPos(x*100, y*100);
             }
-
-            mapfield->setStreet(street);
-
         }
     }
 

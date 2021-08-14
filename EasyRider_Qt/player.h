@@ -15,6 +15,9 @@ public:
 
 public slots:
     void spawn();
+
+private:
+    void moveIfNotColiding(int xDir, int yDir);
 };
 
 #endif // PLAYER_H

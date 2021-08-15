@@ -23,7 +23,8 @@ public:
 
 private:
     int xSize, ySize;
-    std::vector<std::vector<MapParameters>> map;
+    std::vector<std::vector<bool>> streetPart;
+    int brickEdgeLeng;
 
     void setSceneProperties();
     void setScreenSize(int horizontal, int vertical);

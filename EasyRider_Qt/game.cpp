@@ -8,7 +8,7 @@
 
 Game::Game(QWidget* parent)
 {
-    setScreenSize(1600, 1200);
+    setScreenSize(1200, 800);
     setSceneProperties();
     generateMap();
     setPlayer();
@@ -22,26 +22,27 @@ void Game::setScreenSize(int horizontal, int vertical) {
 }
 
 void Game::generateMap() {
-    int brickEdgeLeng = 100; // Brick dimentions = 100x100
+    brickEdgeLeng = 100; // Brick dimentions = 100x100
 
     for (int y = 0; y < ySize/brickEdgeLeng; y++) {
-        std::vector<MapParameters> row;
+        std::vector<bool> row;
+        row.reserve(xSize/brickEdgeLeng);
         for (int x = 0; x < xSize/brickEdgeLeng; x++) {
             if (y%3 == 0 || x%4 == 0) {
                 Street *mapfield = new Street();
                 scene->addItem(mapfield);
                 mapfield->setPos(x*brickEdgeLeng, y*brickEdgeLeng);
                 mapfield->init(brickEdgeLeng);
-                row.push_back(new MapParameters(true));
+                row.push_back(true);
             } else {
                 Sidewalk *mapfield = new Sidewalk();
                 scene->addItem(mapfield);
                 mapfield->setPos(x*brickEdgeLeng, y*brickEdgeLeng);
                 mapfield->init(brickEdgeLeng);
-                row.push_back(new MapParameters(false));
+                row.push_back(false);
             }
         }
-        map.push_back(row);
+        streetPart.push_back(row);
     }
 }
 
@@ -57,8 +58,8 @@ void Game::setSceneProperties() {
 void Game::setPlayer() {
     player = new Player();
     // set player at the bottom of the scene
-    PositioningUtils utils = PositioningUtils(map);
-    std::pair<int, int> pos = utils.getValidPos(false, false, xSize/2, true);
+    PositioningUtils utils = PositioningUtils(&streetPart, brickEdgeLeng);
+    std::pair<int, int> pos = utils.getValidPos(true, false, xSize/2, true);
     player->setPos(std::get<0>(pos), std::get<1>(pos));
     player->setFlag(QGraphicsItem::ItemIsFocusable);
     player->setFocus();

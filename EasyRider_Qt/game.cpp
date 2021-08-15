@@ -56,7 +56,7 @@ void Game::setSceneProperties() {
 }
 
 void Game::setPlayer() {
-    player = new Player();
+    player = new Player(&streetPart, brickEdgeLeng);
     // set player at the bottom of the scene
     PositioningUtils utils = PositioningUtils(&streetPart, brickEdgeLeng);
     std::pair<int, int> pos = utils.getValidPos(true, false, xSize/2, true);

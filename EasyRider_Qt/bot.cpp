@@ -1,12 +1,17 @@
 #include "bot.h"
+#include "positioningutils.h"
 
 #include <QTimer>
 #include <QGraphicsScene>
 #include <QList>
 #include <stdlib.h>
+#include <utility>
 
-Bot::Bot(QGraphicsItem *parent): QObject(), QGraphicsRectItem(parent)
+Bot::Bot(std::vector<std::vector<bool>> *map, int brickEdgeLeng, QGraphicsItem *parent): QObject(), QGraphicsRectItem(parent)
 {
+    this->map = map;
+    this->brickEdgeLeng = brickEdgeLeng;
+
     //TODO random type: car, motorcycle, truck, pedestrian
 
     vehicle.init(30, 30, 5);
@@ -22,27 +27,36 @@ Bot::Bot(QGraphicsItem *parent): QObject(), QGraphicsRectItem(parent)
 }
 
 void Bot::setStartPos() {
-    int x = 0;
-    int y = 0;
+//    int x = 0;
+//    int y = 0;
+    PositioningUtils positioning(map, brickEdgeLeng);
+    std::pair<int, int> xy;
+    int approxPos;
+
+
 
     if (axis == yDir) {
-        if (isPositive) {
-            x = scene()->width()/2 + 10;// in the midle of x axis
-            y = scene()->height();
-        } else {
-            x = scene()->width()/2 - 10 - vehicle.width;
-        }
+        approxPos = rand() % (int)scene()->height();
+        xy = positioning.getValidPos(false, isPositive, approxPos, true);
+//        if (isPositive) {
+//            x = scene()->width()/2 + 10;// in the midle of x axis
+//            y = scene()->height();
+//        } else {
+//            x = scene()->width()/2 - 10 - vehicle.width;
+//        }
     } else {
-        y = scene()->width()/2;;
-        if (isPositive) {
-            x = scene()->height();
-        } else  {
+        approxPos = rand() % (int)scene()->width();
+        xy = positioning.getValidPos(true, isPositive, approxPos, true);
 
-        }
+//        y = scene()->width()/2;;
+//        if (isPositive) {
+//            x = scene()->height();
+//        } else  {
+
+//        }
     }
 
-    setPos(x, y);
-
+    setPos(xy.first, xy.second);
 }
 
 void Bot::move()

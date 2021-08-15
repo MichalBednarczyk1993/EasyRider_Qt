@@ -9,7 +9,10 @@
 class PositioningUtils
 {
 public:
+    PositioningUtils();
     PositioningUtils(std::vector<std::vector<bool>> *map, int brickEdgeLeng);
+    PositioningUtils(const PositioningUtils&) = default;
+    PositioningUtils& operator=(const PositioningUtils& x);
     std::pair<int, int> getValidPos(bool alongXAxis, bool positiveDir, int approxValue, bool isVehicle);
     int setAtRightRoadSide(bool alongXAxis, bool positiveDir);
 

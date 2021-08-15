@@ -10,13 +10,16 @@ class Player: public QObject, public QGraphicsRectItem
     Q_OBJECT
 
 public:
-    Player(QGraphicsItem* parent = 0);
+    Player(std::vector<std::vector<bool>> *map, int brickEdgeLeng, QGraphicsItem* parent = 0);
     void keyPressEvent(QKeyEvent* event);
 
 public slots:
     void spawn();
 
 private:
+    std::vector<std::vector<bool>> *map;
+    int brickEdgeLeng;
+
     void moveIfNotColiding(int xDir, int yDir);
 };
 

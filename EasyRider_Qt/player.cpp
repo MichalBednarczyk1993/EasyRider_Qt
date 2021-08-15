@@ -7,8 +7,10 @@
 #include <QKeyEvent>
 #include <QDebug>
 
-Player::Player(QGraphicsItem* parent): QGraphicsRectItem(parent)
+Player::Player(std::vector<std::vector<bool>> *map, int brickEdgeLeng, QGraphicsItem* parent): QGraphicsRectItem(parent)
 {
+    this->map = map;
+    this->brickEdgeLeng = brickEdgeLeng;
     setRect(0, 0, 30, 30);
 }
 
@@ -31,7 +33,7 @@ void Player::keyPressEvent(QKeyEvent *event) {
 }
 
 void Player::spawn() {
-    Bot* bot = new Bot();
+    Bot* bot = new Bot(map, brickEdgeLeng);
     scene()->addItem(bot);
     bot->setStartPos();
 }

@@ -14,6 +14,7 @@ Game::Game(QWidget* parent)
     setPlayer();
     generateVehicles();
     show();
+
 }
 
 void Game::setScreenSize(int horizontal, int vertical) {

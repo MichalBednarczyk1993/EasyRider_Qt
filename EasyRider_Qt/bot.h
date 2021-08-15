@@ -6,6 +6,7 @@
 #include <QGraphicsRectItem>
 #include <QGraphicsItem>
 #include <QObject>
+#include <vector>
 
 
 class Bot : public QObject, public QGraphicsRectItem
@@ -23,8 +24,9 @@ private:
 
     enum Dir {
         left,
-        rigth,
-        straight
+        right,
+        up,
+        down
     };
 
     enum Axis {
@@ -46,14 +48,18 @@ private:
 
     bool isPositive;
     Dir dir;
-    Axis axis;
+    Axis moveAlong;
     Vehicle vehicle;
     std::vector<std::vector<bool>> *map;
     int brickEdgeLeng;
 
 
     void drawDirection();
-    void moveRigthWay();
+    void moveRightDirection();
+    void randChangeDirection();
+    std::vector<Dir> findPossibleDirs();
+
+
 };
 
 

@@ -6,6 +6,9 @@
 #include <QList>
 #include <stdlib.h>
 #include <utility>
+#include <math.h>
+
+#include <QDebug>
 
 Bot::Bot(std::vector<std::vector<bool>> *map, int brickEdgeLeng, QGraphicsItem *parent): QObject(), QGraphicsRectItem(parent)
 {
@@ -27,33 +30,16 @@ Bot::Bot(std::vector<std::vector<bool>> *map, int brickEdgeLeng, QGraphicsItem *
 }
 
 void Bot::setStartPos() {
-//    int x = 0;
-//    int y = 0;
     PositioningUtils positioning(map, brickEdgeLeng);
     std::pair<int, int> xy;
     int approxPos;
 
-
-
-    if (axis == yDir) {
+    if (moveAlong == yDir) {
         approxPos = rand() % (int)scene()->height();
         xy = positioning.getValidPos(false, isPositive, approxPos, true);
-//        if (isPositive) {
-//            x = scene()->width()/2 + 10;// in the midle of x axis
-//            y = scene()->height();
-//        } else {
-//            x = scene()->width()/2 - 10 - vehicle.width;
-//        }
     } else {
         approxPos = rand() % (int)scene()->width();
         xy = positioning.getValidPos(true, isPositive, approxPos, true);
-
-//        y = scene()->width()/2;;
-//        if (isPositive) {
-//            x = scene()->height();
-//        } else  {
-
-//        }
     }
 
     setPos(xy.first, xy.second);
@@ -62,7 +48,7 @@ void Bot::setStartPos() {
 void Bot::move()
 {
     // move bot down
-    moveRigthWay();
+    moveRightDirection();
 
     // destroy bot when it goes out of the screen
     if (pos().y() > scene()->height() || pos().x() > scene()->width()) {
@@ -77,44 +63,153 @@ void Bot::drawDirection() {
 
     isPositive = rand() % 2;
 
-    switch (rand() % 3) {
+    switch (rand() % 4) {
     case 0:
         dir = left;
         break;
     case 1:
-        dir = rigth;
+        dir = right;
         break;
     case 2:
-        dir = straight;
+        dir = up;
+        break;
+    case 3:
+        dir = down;
         break;
     }
 
     if (rand()%2 == 0) {
-        axis = xDir;
+        moveAlong = xDir;
     } else {
-        axis = yDir;
+        moveAlong = yDir;
     }
 
 }
 
-void Bot::moveRigthWay()
+void Bot::moveRightDirection()
 {
     int x = pos().x();
     int y = pos().y();
 
-    if (axis == yDir) {
-        if (!isPositive) {
-            y -= vehicle.speed;
-        } else {
-            y += vehicle.speed;
-        }
-    } else {
-        if (!isPositive) {
-            x -= vehicle.speed;
-        } else {
-            x += vehicle.speed;
-        }
+    randChangeDirection();
+
+    switch (dir) {
+    case left:
+        x -= vehicle.speed;
+        break;
+    case right:
+        x += vehicle.speed;
+        break;
+    case up:
+        y -= vehicle.speed;
+        break;
+    case down:
+        y += vehicle.speed;
+        break;
     }
 
     setPos(x, y);
+}
+
+void Bot::randChangeDirection()
+{
+    // find possible dirs
+    std::vector<Dir> options;// = findPossibleDirs();
+
+    if(options.size() > 1) {
+        // rand change dir
+        dir = options[(rand() % options.size())-1];
+    } else if (options.empty()) {
+        switch (dir) {
+        case left:
+            dir = right;
+            break;
+        case right:
+            dir = left;
+            break;
+        case up:
+            dir = down;
+            break;
+        case down:
+            dir = up;
+            break;
+        }
+    } else {
+        dir = options[0];
+    }
+}
+
+std::vector<Bot::Dir> Bot::findPossibleDirs()
+{
+    std::vector<Dir> options;
+    int roadPart = std::floor(brickEdgeLeng / 10);
+    int xPos = pos().x();
+    int yPos = pos().y();
+    int xBrick = std::floor(xPos / brickEdgeLeng);
+    int yBrick = std::floor(yPos / brickEdgeLeng);
+
+    qDebug() << "x: " << xBrick << ", y: " << yBrick;
+
+    switch (dir) {
+    case left:
+        if (xPos % brickEdgeLeng == roadPart * 6 && yBrick > 0 &&
+                map->at(yBrick-1)[xBrick] == true) {
+            options.push_back(Dir::up);
+
+        } else if (xPos % brickEdgeLeng == roadPart * 1 &&
+                   yBrick < (int) map->size()-1 &&
+                   map->at(yBrick+1)[xBrick] == true) {
+            options.push_back(Dir::down);
+
+        } else if (xBrick > 0 && map->at(yBrick)[xBrick-1] == true) {
+            options.push_back(Dir::left);
+        }
+        break;
+    case right:
+        if (xPos % brickEdgeLeng == roadPart * 6 && yBrick > 0 &&
+                map->at(yBrick-1)[xBrick] == true) {
+            options.push_back(Dir::up);
+
+        } else if (xPos % brickEdgeLeng == roadPart * 1 &&
+                   yBrick < (int) map->size()-1 &&
+                   map->at(yBrick+1)[xBrick] == true) {
+            options.push_back(Dir::down);
+
+        } else if (xBrick < (int) map->at(0).size()-1 &&
+                    map->at(yBrick)[xBrick+1] == true) {
+            options.push_back(Dir::right);
+        }
+        break;
+    case up:
+        if (yPos % brickEdgeLeng == roadPart * 1 && xBrick > 0 &&
+                map->at(yBrick)[xBrick-1] == true) {
+            options.push_back(Dir::left);
+
+        } else if (yPos % brickEdgeLeng == roadPart * 6 &&
+                   xBrick < (int) map->at(0).size()-1 &&
+                   map->at(yBrick)[xBrick+1] == true) {
+            options.push_back(Dir::left);
+
+        } else if (yBrick > 0 && map->at(yBrick-1)[xBrick] == true) {
+            options.push_back(Dir::up);
+        }
+        break;
+    case down:
+        if (yPos % brickEdgeLeng == roadPart * 1 && xBrick > 0 &&
+                map->at(yBrick)[xBrick-1] == true) {
+            options.push_back(Dir::left);
+
+        } else if (yPos % brickEdgeLeng == roadPart * 6 &&
+                   xBrick < (int) map->at(0).size()-1 &&
+                   map->at(yBrick)[xBrick+1] == true) {
+            options.push_back(Dir::right);
+
+        } else if (yBrick < (int) map->size()-1 &&
+                   map->at(yBrick+1)[xBrick] == true) {
+            options.push_back(Dir::down);
+        }
+        break;
+    }
+
+    return options;
 }

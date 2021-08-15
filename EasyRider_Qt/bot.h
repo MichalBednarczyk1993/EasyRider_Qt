@@ -1,9 +1,12 @@
 #ifndef BOT_H
 #define BOT_H
 
+#include "positioningutils.h"
+
 #include <QGraphicsRectItem>
 #include <QGraphicsItem>
 #include <QObject>
+#include <vector>
 
 
 class Bot : public QObject, public QGraphicsRectItem
@@ -11,7 +14,7 @@ class Bot : public QObject, public QGraphicsRectItem
     Q_OBJECT
 
 public:
-    Bot(QGraphicsItem *parent=0);
+    Bot(std::vector<std::vector<bool>> *map, int brickEdgeLeng, QGraphicsItem *parent=0);
     void setStartPos();
 
 public slots:
@@ -21,8 +24,9 @@ private:
 
     enum Dir {
         left,
-        rigth,
-        straight
+        right,
+        up,
+        down
     };
 
     enum Axis {
@@ -44,12 +48,18 @@ private:
 
     bool isPositive;
     Dir dir;
-    Axis axis;
+    Axis moveAlong;
     Vehicle vehicle;
+    std::vector<std::vector<bool>> *map;
+    int brickEdgeLeng;
 
 
     void drawDirection();
-    void moveRigthWay();
+    void moveRightDirection();
+    void randChangeDirection();
+    std::vector<Dir> findPossibleDirs();
+
+
 };
 
 

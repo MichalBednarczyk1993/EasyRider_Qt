@@ -2,12 +2,13 @@
 #define GAME_H
 
 #include "player.h"
-#include "mapfield.h"
+#include "mapparameters.h"
+#include "positioningutils.h"
 
 #include <QGraphicsView>
 #include <QWidget>
 #include <QGraphicsScene>
-#include <list>
+#include <vector>
 
 
 class Game: public QGraphicsView
@@ -19,8 +20,11 @@ public:
     Player* player;
 
 
+
 private:
     int xSize, ySize;
+    std::vector<std::vector<bool>> streetPart;
+    int brickEdgeLeng;
 
     void setSceneProperties();
     void setScreenSize(int horizontal, int vertical);

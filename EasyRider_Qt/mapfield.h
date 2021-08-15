@@ -1,21 +1,15 @@
 #ifndef MAPFIELD_H
 #define MAPFIELD_H
 
-#include <QGraphicsRectItem>
-#include <QGraphicsItem>
-#include <QObject>
-
-class MapField : public QObject, public QGraphicsRectItem
+class MapField
 {
-    Q_OBJECT
-public:
-    MapField(int brickEdgeLeng, QGraphicsItem* parent = 0);
-    void setStreet(bool isStreet);
 
-private:
+public:
+    virtual void init(int brickEdgeLeng)=0;
+
+protected:
     int width = 100;
     int lenght = 100;
-    bool street = false;
 
 };
 

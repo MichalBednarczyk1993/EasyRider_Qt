@@ -6,6 +6,7 @@
 #include <QGraphicsScene>
 #include <QKeyEvent>
 #include <QDebug>
+#include <qnamespace.h>
 
 Player::Player(std::vector<std::vector<bool>> *map, int brickEdgeLeng, QGraphicsItem* parent): QGraphicsRectItem(parent)
 {
@@ -36,6 +37,7 @@ void Player::spawn() {
     Bot* bot = new Bot(map, brickEdgeLeng);
     scene()->addItem(bot);
     bot->setStartPos();
+    bot->setBrush((Qt::GlobalColor)bot->getColour());
 }
 
 void Player::moveIfNotColiding(int xDir, int yDir) {

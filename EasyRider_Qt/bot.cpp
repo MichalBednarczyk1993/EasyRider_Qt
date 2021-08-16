@@ -1,5 +1,6 @@
 #include "bot.h"
 #include "positioningutils.h"
+#include "vehicle.h"
 
 #include <QTimer>
 #include <QGraphicsScene>
@@ -15,12 +16,21 @@ Bot::Bot(std::vector<std::vector<bool>> *map, int brickEdgeLeng, QGraphicsItem *
     this->map = map;
     this->brickEdgeLeng = brickEdgeLeng;
 
-    //TODO random type: car, motorcycle, truck, pedestrian
-
-    vehicle.init(30, 30, 5);
+    switch (rand() % 4) {
+    case 1:
+        vehicle = std::make_shared<BlueCar>();
+        break;
+    case 2:
+        vehicle = std::make_shared<RedCar>();
+        break;
+    case 3:
+        vehicle = std::make_shared<YellowCar>();
+        break;
+    }
+    vehicle->setValues();
 
     // generate random direaction starting and position
-    setRect(0, 0, vehicle.width, vehicle.leng);
+    setRect(0, 0, vehicle->getWidth(), vehicle->getLength());
     drawDirection();
 
     // connect a timer to move() vehicle after every timeout
@@ -55,8 +65,6 @@ void Bot::move()
         scene()->removeItem(this);
         delete this;
     }
-
-
 }
 
 void Bot::drawDirection() {
@@ -95,16 +103,16 @@ void Bot::moveRightDirection()
 
     switch (dir) {
     case left:
-        x -= vehicle.speed;
+        x -= vehicle->getSpeed();
         break;
     case right:
-        x += vehicle.speed;
+        x += vehicle->getSpeed();
         break;
     case up:
-        y -= vehicle.speed;
+        y -= vehicle->getSpeed();
         break;
     case down:
-        y += vehicle.speed;
+        y += vehicle->getSpeed();
         break;
     }
 
@@ -114,7 +122,7 @@ void Bot::moveRightDirection()
 void Bot::randChangeDirection()
 {
     // find possible dirs
-    std::vector<Dir> options;// = findPossibleDirs();
+    std::vector<Dir> options = findPossibleDirs();
 
     if(options.size() > 1) {
         // rand change dir

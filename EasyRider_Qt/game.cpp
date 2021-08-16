@@ -6,15 +6,13 @@
 #include <QTimer>
 
 
-Game::Game(QWidget* parent)
-{
+Game::Game() {
     setScreenSize(1200, 800);
     setSceneProperties();
     generateMap();
     setPlayer();
     generateVehicles();
     show();
-
 }
 
 void Game::setScreenSize(int horizontal, int vertical) {

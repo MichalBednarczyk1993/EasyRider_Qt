@@ -10,19 +10,6 @@ PositioningUtils::PositioningUtils(std::vector<std::vector<bool> > *map, int bri
 }
 
 
-/**
- * @brief PositioningUtils::getValidPos - will compute and return valid
- * position of vehicle (or pedestrian) at provided in constructor map.
- * Returned value will be close to expected approximate position.
- *
- * @param alongXAxis - true, if position will be set along X axis
- * @param positiveDir - true, if vehicle will be moving as values of
- * perpendiculal axis values will be growning
- * @param approxValue - approximate position along choosen axis
- * @param isVehicle - true if will ride over street
- *
- * @return std::pair <int, int> (xAxisPos, yAxisPos)
- */
 std::pair<int, int> PositioningUtils::getValidPos(bool alongXAxis, bool positiveDir, int approxValue, bool isVehicle)
 {
     if (alongXAxis) {

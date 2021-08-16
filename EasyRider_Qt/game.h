@@ -2,26 +2,25 @@
 #define GAME_H
 
 #include "player.h"
-#include "mapparameters.h"
 #include "positioningutils.h"
 
 #include <QGraphicsView>
-#include <QWidget>
 #include <QGraphicsScene>
 #include <vector>
 
-
+/**
+ * @brief The Game class will initialize the game.
+ * It has to be used each time you will create new instance
+ * of this program.
+ */
 class Game: public QGraphicsView
 {
 public:
-    Game(QWidget* parent = 0);
-
-    QGraphicsScene* scene;
-    Player* player;
-
-
+    Game();
 
 private:
+    QGraphicsScene* scene;
+    Player* player;
     int xSize, ySize;
     std::vector<std::vector<bool>> streetPart;
     int brickEdgeLeng;

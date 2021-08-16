@@ -9,9 +9,27 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    main.cpp
+    bot.cpp \
+    game.cpp \
+    main.cpp \
+    mapfield.cpp \
+    mapparameters.cpp \
+    player.cpp \
+    positioningutils.cpp \
+    sidewalk.cpp \
+    street.cpp \
+    vehicle.cpp
 
-HEADERS +=
+HEADERS += \
+    bot.h \
+    game.h \
+    mapfield.h \
+    mapparameters.h \
+    player.h \
+    positioningutils.h \
+    sidewalk.h \
+    street.h \
+    vehicle.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

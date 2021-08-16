@@ -2,7 +2,6 @@
 #define BOT_H
 
 #include "positioningutils.h"
-#include "vehicle.h"
 
 #include <QGraphicsRectItem>
 #include <QGraphicsItem>
@@ -17,7 +16,7 @@ class Bot : public QObject, public QGraphicsRectItem
 public:
     Bot(std::vector<std::vector<bool>> *map, int brickEdgeLeng, QGraphicsItem *parent=0);
     void setStartPos();
-    inline int getColour() {return vehicle->getColour();};
+    inline int getColour() {return vehicle.colour;};
 
 public slots:
     void move();
@@ -36,23 +35,23 @@ private:
         yDir
     };
 
-//    struct Vehicle {
+    struct Vehicle {
 
-//        void init(int lenght, int widht, int speed) {
-//            this->leng = lenght;
-//            this->width = widht;
-//            this->speed = speed;
-//        };
-//        int leng;
-//        int width;
-//        int speed;
-//    };
+        void init(int lenght, int widht, int speed) {
+            this->leng = lenght;
+            this->width = widht;
+            this->speed = speed;
+        };
+        int leng;
+        int width;
+        int speed;
+        int colour;
+    };
 
     bool isPositive;
     Dir dir;
     Axis moveAlong;
-    std::shared_ptr<Vehicle> v1;
-    std::shared_ptr<Vehicle> vehicle;
+    Vehicle vehicle;
     std::vector<std::vector<bool>> *map;
     int brickEdgeLeng;
 

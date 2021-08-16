@@ -17,8 +17,7 @@ SOURCES += \
     player.cpp \
     positioningutils.cpp \
     sidewalk.cpp \
-    street.cpp \
-    vehicle.cpp
+    street.cpp
 
 HEADERS += \
     bot.h \
@@ -28,8 +27,7 @@ HEADERS += \
     player.h \
     positioningutils.h \
     sidewalk.h \
-    street.h \
-    vehicle.h
+    street.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

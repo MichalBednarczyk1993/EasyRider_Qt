@@ -1,6 +1,5 @@
 #include "bot.h"
 #include "positioningutils.h"
-#include "vehicle.h"
 
 #include <QTimer>
 #include <QGraphicsScene>
@@ -16,21 +15,22 @@ Bot::Bot(std::vector<std::vector<bool>> *map, int brickEdgeLeng, QGraphicsItem *
     this->map = map;
     this->brickEdgeLeng = brickEdgeLeng;
 
+    vehicle.init(30, 30, 5);
+
     switch (rand() % 4) {
     case 1:
-        vehicle = std::make_shared<BlueCar>();
+        vehicle.colour = Qt::blue;
         break;
     case 2:
-        vehicle = std::make_shared<RedCar>();
+        vehicle.colour = Qt::red;
         break;
     case 3:
-        vehicle = std::make_shared<YellowCar>();
+        vehicle.colour = Qt::yellow;
         break;
     }
-    vehicle->setValues();
 
     // generate random direaction starting and position
-    setRect(0, 0, vehicle->getWidth(), vehicle->getLength());
+    setRect(0, 0, vehicle.width, vehicle.leng);
     drawDirection();
 
     // connect a timer to move() vehicle after every timeout
@@ -103,16 +103,16 @@ void Bot::moveRightDirection()
 
     switch (dir) {
     case left:
-        x -= vehicle->getSpeed();
+        x -= vehicle.speed;
         break;
     case right:
-        x += vehicle->getSpeed();
+        x += vehicle.speed;
         break;
     case up:
-        y -= vehicle->getSpeed();
+        y -= vehicle.speed;
         break;
     case down:
-        y += vehicle->getSpeed();
+        y += vehicle.speed;
         break;
     }
 
